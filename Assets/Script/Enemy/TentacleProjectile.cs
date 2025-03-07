@@ -16,7 +16,7 @@ public class TentacleProjectile : MonoBehaviour
     private bool isMoving = false;
     private bool isReturn = false;
     private float reloadingTime;
-    private Bbb10311031_PlayerAttack _playerAttack;
+    private PlayerAttack _playerAttack;
 
 
     GameObject enemy;
@@ -54,43 +54,43 @@ public class TentacleProjectile : MonoBehaviour
 
     void Update()
     {
-
         if (isMoving)
         {
-            transform.up = (targetPosition - startPosition).normalized; // 작살 물체 방향
-
-            // 이동
-            transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
-
-            // 목적지 도착하면 멈춤
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
-            {
-                if (enemy != null)
-                {
-                    Destroy(enemy);
-                    //SoundManager.instance.PlaySFX("Clash");
-                }
-                else
-                {
-                    //SoundManager.instance.PlaySFX("SmallCanon");
-                }
-                isReturn = true; // 끝까지 도달했음
-                isMoving = false;
-                GetComponent<CapsuleCollider2D>().enabled = false;
-                //Destroy(gameObject);
-            }
+            Moving();
         }
-        else if (isReturn)
+        else
         {
-            if (bossObj != null)
-            {
-                transform.up = Vector3.Lerp(transform.up, (targetPosition - bossObj.transform.position).normalized, Time.deltaTime);
-                transform.position = Vector3.MoveTowards(transform.position, bossObj.transform.position, returnSpeed * Time.deltaTime);
+            Returning();
+        }
+    }
 
-                if (Vector3.Distance(transform.position, bossObj.transform.position) < 0.1f)
-                {
-                    Destroy(gameObject);
-                }
+    // 작살이 목표지점을 향해 날아갈 때
+    void Moving()
+    {
+        transform.up = (targetPosition - startPosition).normalized; // 작살 물체 방향
+
+        // 이동
+        transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+
+        // 목적지 도착하면 멈춤
+        if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
+        {
+            isMoving = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
+
+    // 작살이 졸아 올 때
+    void Returning()
+    {
+        if (bossObj != null)
+        {
+            transform.up = Vector3.Lerp(transform.up, (targetPosition - bossObj.transform.position).normalized, Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, bossObj.transform.position, returnSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, bossObj.transform.position) < 0.1f)
+            {
+                Destroy(gameObject);
             }
         }
     }
@@ -103,18 +103,18 @@ public class TentacleProjectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && isMoving) // 장애물과 충돌하면
         {
             ReturnStart();
         }
     }
+
     // 돌아오기 시작할 때 충돌 판정 안나도록 설정
     void ReturnStart()
     {
         isMoving = false;
-        isReturn = true;
         GetComponent<CapsuleCollider2D>().enabled = false;
     }
 }

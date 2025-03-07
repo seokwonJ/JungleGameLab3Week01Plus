@@ -84,30 +84,6 @@ public class KrakenMove : MonoBehaviour
         }
     }
 
-    // 플레이어 방향으로 힘을 적용 (일시적으로)
-    private void ApplyTentacleForce(Transform tentacle, Vector2 direction)
-    {
-        Rigidbody2D tentacleRb = tentacle.GetComponent<Rigidbody2D>();
-        if (tentacleRb != null)
-        {
-            // 힘을 일시적으로 추가하고 일정 시간이 지나면 제거
-            StartCoroutine(ApplyForceTemporarily(tentacleRb, direction));
-        }
-    }
-
-    private IEnumerator ApplyForceTemporarily(Rigidbody2D tentacleRb, Vector2 direction)
-    {
-
-        // 새로운 힘을 플레이어 방향으로 적용
-        tentacleRb.AddForce(direction * forceStrength, ForceMode2D.Impulse);
-
-        // 일정 시간 동안 힘을 지속
-        yield return new WaitForSeconds(forceDuration);
-
-        // // 반대 방향으로 힘을 추가하여 원래 자리로 돌아오게 함
-        // Vector2 reverseDirection = -direction;
-        // tentacleRb.AddForce(reverseDirection * forceStrength, ForceMode2D.Impulse);
-    }
 
 
     // 밀리 어택을 위한 근접 공격

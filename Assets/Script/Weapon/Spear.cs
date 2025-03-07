@@ -16,7 +16,7 @@ public class Spear : MonoBehaviour
     private bool isMoving = false;
     private bool isReturn = false;
     private float reloadingTime;
-    private Bbb10311031_PlayerAttack _playerAttack;
+    private PlayerAttack _playerAttack;
 
 
     GameObject enemy;
@@ -28,7 +28,7 @@ public class Spear : MonoBehaviour
     private void Awake()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
-        _playerAttack = playerObj.GetComponent<Bbb10311031_PlayerAttack>();
+        _playerAttack = playerObj.GetComponent<PlayerAttack>();
     }
 
     void Start()

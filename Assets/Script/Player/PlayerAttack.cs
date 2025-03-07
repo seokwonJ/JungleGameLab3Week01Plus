@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro.Examples;
 using UnityEngine;
 
-public class Bbb10311031_PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     public GameObject bullet;
     private int maxAttackCount = 1;

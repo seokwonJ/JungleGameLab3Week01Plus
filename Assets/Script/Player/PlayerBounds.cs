@@ -38,6 +38,5 @@ public class PlayerBounds : MonoBehaviour
         {
             Debug.Log("장애물");
         }
-        //Debug.Log("장애물?");
     }
 }
