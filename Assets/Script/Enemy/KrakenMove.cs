@@ -61,9 +61,7 @@ public class KrakenMove : MonoBehaviour
             // 플레이어와의 거리가 4f 이하일 때 공격 (isAttacking, isCooldown 체크 추가)
             else if (!isAttacking && !isCooldown)
             {
-                Debug.Log("공격 시작");
                 StartCoroutine(MeleeAttack());
-                //player.GetComponent<PlayerHealth>().TakeDamage(10);
             }
         }
     }

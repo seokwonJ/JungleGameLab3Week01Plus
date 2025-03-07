@@ -30,7 +30,6 @@ public class Whale : MonoBehaviour
         if(isTakeDamaged)   // 데미지 받았으면
         {
             unattackTimer += Time.deltaTime;    // 무적시간 측정
-            Debug.Log("고래 무적");
 
             if(unattackTime < unattackTimer) 
             {

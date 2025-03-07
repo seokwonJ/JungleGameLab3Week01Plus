@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
     public bool isGameClear;
     public float playTime = 0;  // 플레이 시간
-    public int Level = 1;
     public int startTime = 5;
     public bool isStartGame = false;
     GameObject playerObject;
@@ -24,6 +23,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> spawnPrefabList = new List<GameObject>();          // 프리팹 리스트,                     0: 구름, 1: 상어, 2: 크라켄
     public List<Coroutine> spawnIntervalCorouineList;                          // 프리팹 주기적 소환 코루틴 리스트,  0: 구름, 1: 상어
     public List<GameObject> sharkList = new List<GameObject>();
+
     void Awake()
     {
         if (_instance == null)
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "IntegrateScene")
             UpdateTimer();
 
-        if (playTime > bossSpawnTime && !isboss)
+        if (playTime > bossSpawnTime && !isBoss)
             BossStart();
 
         // 게임 시작
@@ -56,13 +56,6 @@ public class GameManager : MonoBehaviour
         {
             isStartGame = true;
             GamePlaying();
-        }
-
-
-        if (playTime > 180)
-        {
-            UIManager.Instance.UpdateGameClearUI();
-            return;
         }
     }
 
@@ -78,23 +71,21 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         isGameClear = false;
         playTime = 0;
-        Level = 1;
+
         startTime = 5;
         isStartGame = false;
-        isboss = false;
+        isBoss = false;
 
         spawnIntervalCorouineList = new List<Coroutine>();
 
         // 이전의 코루틴들이 존재할 시, 멈추고 비우기
         StopAllCoroutines();
-        //for (int i = 0; i < spawnIntervalCorouineList.Count; i++)
-        //    spawnIntervalCorouineList[i] = null;
 
         // 구름 소환
         if (spawnIntervalCorouineList.Count == 0)
         {
             spawnIntervalCorouineList.Add(StartCoroutine(SpawnIntervalPrefabCoroutine(spawnPrefabList[0], 10.0f, false)));
-            Debug.Log($"구름 코루틴 추가, 현재 코루틴 개수: {spawnIntervalCorouineList.Count}");
+
         }
     }
 
@@ -108,8 +99,6 @@ public class GameManager : MonoBehaviour
         if (spawnIntervalCorouineList.Count == 1)
         {
             spawnIntervalCorouineList.Add(StartCoroutine(SpawnIntervalPrefabCoroutine(spawnPrefabList[1], sharkSpawnInterval, true)));
-
-            Debug.Log($"상어 코루틴 추가, 현재 코루틴 개수: {spawnIntervalCorouineList.Count}");
         }
     }
 
@@ -145,7 +134,7 @@ public class GameManager : MonoBehaviour
     float bossHP;
     GameObject bossObj;
     Image bossHealthBarFill;
-    public bool isboss;
+    public bool isBoss;
     public float bossSpawnTime = 45;
 
     // 보스 데미지 받는 함수
@@ -185,8 +174,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 크라켄 소환
-        isboss = true;
-       
+        isBoss = true;
         bossObj = Instantiate(spawnPrefabList[2]);
     }
 

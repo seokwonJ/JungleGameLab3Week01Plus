@@ -60,7 +60,6 @@ public class PlayerMove : MonoBehaviour
         float targetSpeed = moveInput * maxSpeed;
         float speedDiff = targetSpeed - currentSpeed;
         float movementForce = speedDiff * speed;
-        rb.AddForce(transform.up * movementForce, ForceMode2D.Force);
 
         if (Mathf.Abs(currentSpeed) < maxSpeed || Mathf.Sign(targetSpeed) != Mathf.Sign(currentSpeed))
         {

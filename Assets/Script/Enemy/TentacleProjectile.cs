@@ -10,11 +10,9 @@ public class TentacleProjectile : MonoBehaviour
     public GameObject tail;    // 끈 연결 부분
 
     public float acceleration = 2f; // 가속도
-    private float currentSpeed = 0f; // 현재 속도
 
     private Vector3 originalScale; // 원래 크기
     private bool isMoving = false;
-    private bool isReturn = false;
     private float reloadingTime;
     private PlayerAttack _playerAttack;
 

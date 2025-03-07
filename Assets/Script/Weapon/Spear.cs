@@ -3,39 +3,32 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Spear : MonoBehaviour
 {
-    public float speed = 6f; // �̵� �ӵ�
+    public float speed = 6f; 
     public float returnSpeed = 6f;
-    public Vector3 targetPosition; // Ŭ���� ��ġ
-    public Vector3 startPosition; // ���� ��ġ 
-    public GameObject tail;    // �� ���� �κ�
+    public Vector3 targetPosition; 
+    public Vector3 startPosition;
+    public GameObject tail;
 
-    public float acceleration = 2f; // ���ӵ�
-    private float currentSpeed = 0f; // ���� �ӵ�
+    public float acceleration = 2f; 
 
-    private Vector3 originalScale; // ���� ũ��
-    private bool isMoving = false;
-    private bool isReturn = false;
-    private float reloadingTime;
-    private PlayerAttack _playerAttack;
+    bool isMoving;
+    PlayerAttack playerAttack;
 
-
-    GameObject enemy;
     GameObject playerObj;
 
     Transform[] points = new Transform[2];
 
-
     private void Awake()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
-        _playerAttack = playerObj.GetComponent<PlayerAttack>();
+        playerAttack = playerObj.GetComponent<PlayerAttack>();
     }
 
     void Start()
     {
         startPosition = transform.position;
-        targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f); // 3D ��ǥ�� 2D�� ����
-        returnSpeed = returnSpeed * StateManager.Instance.ReloadingTime(); // ���ƿ��� �ӵ�
+        targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+        returnSpeed = returnSpeed * StateManager.Instance.ReloadingTime();
         SetTail();
 
         isMoving = true;
@@ -48,85 +41,59 @@ public class Spear : MonoBehaviour
         tail.GetComponent<LineController>().SetUpLine(points);
     }
 
-
-
     void Update()
     {
-
         if (isMoving)
         {
-            transform.up = (targetPosition - startPosition).normalized; // �ۻ� ��ü ����
-
-            // �̵�
-            transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
-
-            // ������ �����ϸ� ����
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
-            {
-                if (enemy != null)
-                {
-                    StateManager.Instance.CoinPlus();
-                    //SoundManager.instance.PlaySFX("Clash");
-                }
-                else
-                {
-                    //SoundManager.instance.PlaySFX("SmallCanon");
-                }
-                isReturn = true; // ������ ��������
-                isMoving = false;
-                GetComponent<CapsuleCollider2D>().enabled = false;
-                //Destroy(gameObject);
-            }
+            Moving();
         }
-        else if (isReturn && playerObj != null)
+        else if (!isMoving && playerObj != null)
         {
-            transform.up = Vector3.Lerp(transform.up, (targetPosition - playerObj.transform.position).normalized, Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, playerObj.transform.position, returnSpeed * Time.deltaTime);
+            Returning();
+        }
+    }
 
+    void Moving()
+    {
+        transform.up = (targetPosition - startPosition).normalized;
 
-            SpearRotation();
+        transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
+        {
+            isMoving = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
 
-            if (Vector3.Distance(transform.position, playerObj.transform.position) < 0.1f)
-            {
-                _playerAttack.AttackCountUp();
-                Destroy(gameObject);
-            }
+    void Returning()
+    {
+        transform.up = Vector3.Lerp(transform.up, (targetPosition - playerObj.transform.position).normalized, Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, playerObj.transform.position, returnSpeed * Time.deltaTime);
+
+        SpearRotation();
+
+        if (Vector3.Distance(transform.position, playerObj.transform.position) < 0.1f)
+        {
+            playerAttack.AttackCountUp();
+            Destroy(gameObject);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && isMoving) // ���� �浹�ϸ�
+        if (other.CompareTag("Enemy") && isMoving)
         {
             StateManager.Instance.CoinPlus();
             Destroy(other.gameObject);
             ReturnStart();
-
-            // (�ӽ�)
-            if (other.GetComponent<KrakenMove>() != null)
-                GameManager.Instance.GoShopScene();
-
         }
-        if (other.CompareTag("Obstacle") && isMoving) // ��ֹ��� �浹�ϸ�
+        if (other.CompareTag("Obstacle") && isMoving)
         {
             ReturnStart();
         }
-        if (other.CompareTag("Boss") && isMoving) // ������ �浹�ϸ�
+        if (other.CompareTag("Boss") && isMoving)
         {
             GameManager.Instance.DamagedBossHP(2);
-            ReturnStart();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy") && isMoving) // ���� �浹�ϸ�
-        {
-            Destroy(collision.gameObject);
-            ReturnStart();
-        }
-        if (collision.gameObject.CompareTag("Obstacle") && isMoving) // ��ֹ��� �浹�ϸ�
-        {
             ReturnStart();
         }
     }
@@ -138,11 +105,10 @@ public class Spear : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 
-    // ���ƿ��� ������ �� �浹 ���� �ȳ����� ����
+
     void ReturnStart()
     {
         isMoving = false;
-        isReturn = true;
         GetComponent<CapsuleCollider2D>().enabled = false;
     }
 }

@@ -230,7 +230,6 @@ MonoBehaviour:
   isGameOver: 0
   isGameClear: 0
   playTime: 0
-  Level: 1
   startTime: 5
   isStartGame: 0
   sharkSpawnInterval: 1
@@ -241,7 +240,7 @@ MonoBehaviour:
   - {fileID: 6974489897007497795, guid: b22b53c39099b8b41bd0cb6580931323, type: 3}
   sharkList: []
   maxBossHP: 100
-  isboss: 0
+  isBoss: 0
   bossSpawnTime: 45
 --- !u!4 &76059816
 Transform:
@@ -597,6 +596,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350417660}
   m_CullTransparentMesh: 1
+--- !u!1001 &359478201
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 94407657635780344, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.007445986
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121531491239973102, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121531491239973102, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
 --- !u!1 &385427518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,8 +1841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef16634f89f9134695d37e15a4b69cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.3
-  shakeMagnitude: 0.2
   <ScreenArea>k__BackingField: {x: 0, y: 0}
 --- !u!81 &934824795
 AudioListener:
@@ -3257,6 +3319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
+  speed: 10
   acceleration: 3
   turnSpeed: 100
 --- !u!212 &585400829719202272
@@ -3660,7 +3723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1626117025096321095
 Transform:
   m_ObjectHideFlags: 0
@@ -5934,8 +5997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarFill: {fileID: 0}
   maxHealth: 50
-  shakeDuration: 0.3
-  shakeMagnitude: 0.2
+  cameraController: {fileID: 0}
 --- !u!1 &8671980446259386561
 GameObject:
   m_ObjectHideFlags: 0
@@ -6129,6 +6191,7 @@ SceneRoots:
   - {fileID: 934824797}
   - {fileID: 1881482299}
   - {fileID: 810076434}
+  - {fileID: 359478201}
   - {fileID: 1169238457812281496}
   - {fileID: 968767479}
   - {fileID: 1572860394}

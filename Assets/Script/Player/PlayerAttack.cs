@@ -27,8 +27,8 @@ public class PlayerAttack : MonoBehaviour
             GameObject bulletObj = Instantiate(bullet, transform.position,Quaternion.Euler(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             bulletObj.GetComponent<Spear>().targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(cameraController != null)
-                StartCoroutine(cameraController.ShakeCamera());
+            if (cameraController != null)
+                cameraController.StartShake(0.3f,0.1f);
         }
     }
 

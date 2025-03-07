@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float shakeDuration = 0.3f; //
-                                       // 흔들리는 지속 시간
-    public float shakeMagnitude = 0.2f; // 흔들림 강도
-
     Vector3 originalPosition;
     [field: SerializeField] public Vector2 ScreenArea { get; private set; } // 화면 크기
     void Start()
@@ -17,8 +13,13 @@ public class CameraController : MonoBehaviour
         ScreenArea = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z));
     }
 
+    public void StartShake(float duration, float manitude)
+    {
+        StartCoroutine(ShakeCamera(duration, manitude));
+    }
+
     // 카메라 화면 흔들기
-    public IEnumerator ShakeCamera()
+    private IEnumerator ShakeCamera(float shakeDuration, float shakeMagnitude)
     {
         float elapsedTime = 0f;
 
@@ -32,7 +33,6 @@ public class CameraController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         Camera.main.transform.position = originalPosition; // 원래 위치로 복귀
     }
 }

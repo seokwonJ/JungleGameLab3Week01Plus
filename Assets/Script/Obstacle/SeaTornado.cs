@@ -9,18 +9,10 @@ public class SeaTornado : Attraction
     [SerializeField] float angle = 5f;
     [SerializeField] float intervalLine = 0.1f;
 
-    [SerializeField] float lifeTime = 5f;
+    //[SerializeField] float lifeTime = 5f;
 
     private void Update()
     {
-        //if (Vector3.Distance(trail.transform.position, transform.position) < 0.5f)
-        //{
-        //    Destroy(trail.gameObject);
-        //    trail = Instantiate(trailPrefab, transform);
-        //    transform.position = new Vector3(0, 0, 0);
-        //    return;
-        //}
-
         if (transform.position.z < 0.8f)
         {
             trail.transform.RotateAround(transform.position, Vector3.forward, angle);

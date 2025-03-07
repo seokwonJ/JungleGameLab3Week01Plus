@@ -51,10 +51,6 @@ public class UIManager : MonoBehaviour
         // 재시작 버튼
         RestartBtn = overUI.transform.GetChild(1).GetComponent<Button>();
         RestartBtn.onClick.AddListener(() => GameManager.Instance.GoShopScene());
-        if (RestartBtn != null)
-            Debug.Log("재시작 이벤트 등록 되어있음");
-
-
         gameTime = transform.GetChild(4).GetComponent<Text>();
 
         bossUI = transform.GetChild(5).gameObject;
@@ -98,7 +94,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateShaksfinUI()
     {
-        Debug.Log($"샥스핀 ui: {StateManager.Instance.MyCoin}");
         shaksfinUI.text = $"Shaksfin: {StateManager.Instance.MyCoin}";
     }
 

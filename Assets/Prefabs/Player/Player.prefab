@@ -762,8 +762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
+  speed: 0
   acceleration: 3
-  deceleration: 5
   turnSpeed: 100
 --- !u!50 &5945947258233566560
 Rigidbody2D:
@@ -870,8 +870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarFill: {fileID: 0}
   maxHealth: 50
-  shakeDuration: 0.3
-  shakeMagnitude: 0.2
+  cameraController: {fileID: 0}
 --- !u!114 &1015998508676204224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2254,6 +2253,9 @@ MonoBehaviour:
   isExistTail: 1
   isExistBody: 1
   isExistHead: 1
+  isTakeDamaged: 0
+  unattackTimer: 0
+  unattackTime: 0.75
 --- !u!58 &8289308668730450409
 CircleCollider2D:
   m_ObjectHideFlags: 0

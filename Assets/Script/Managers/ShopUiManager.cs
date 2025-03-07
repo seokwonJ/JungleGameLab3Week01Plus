@@ -9,7 +9,6 @@ public class ShopUiManager : MonoBehaviour
     int _myCoin;
     public Text coinCount;
 
-
     private void Start()
     {
         UpdatePurchase();
@@ -17,7 +16,6 @@ public class ShopUiManager : MonoBehaviour
 
     public void GoStart()
     {
-        //SceneManager.LoadScene(0);
         GameManager.Instance.GoInGameScene();
     }
 
