@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.UpdateGameOverUI(); // 게임 오버 UI 보이기
 
+        StopAllCoroutines();
+
         //if (enemySpawner != null) enemySpawner.SetActive(false);
         isGameOver = true;
     }
@@ -142,7 +144,6 @@ public class GameManager : MonoBehaviour
     {
         if (bossHP > 0)
         {
-            print("보스 데미지 받음");
             bossHP -= value;
             bossHealthBarFill.fillAmount = bossHP / maxBossHP;
         }
