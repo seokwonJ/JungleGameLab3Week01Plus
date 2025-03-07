@@ -1522,7 +1522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7240755903038455589}
   m_Layer: 0
-  m_Name: Reloading Power 1
+  m_Name: SpeedUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   msgSuccess: {fileID: 0}
   msgFailure: {fileID: 0}
-  characterState: 2
+  characterState: 1
 --- !u!58 &398255794750659345
 CircleCollider2D:
   m_ObjectHideFlags: 0

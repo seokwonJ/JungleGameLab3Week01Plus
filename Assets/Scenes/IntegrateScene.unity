@@ -229,19 +229,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   isGameClear: 0
-  playTime: 0
-  startTime: 5
+  playDistance: 1000
   isStartGame: 0
-  sharkSpawnInterval: 1
+  sharkSpawnInterval: 0.75
   spawnTransformList: []
   spawnPrefabList:
   - {fileID: 6401930838165955585, guid: e9762b0bd924cd847bf01817005feb78, type: 3}
   - {fileID: 6974489897007497795, guid: fc54a8b289bf8a644ba7296cc46c21ac, type: 3}
+  - {fileID: 6974489897007497795, guid: 778f116354a804f4785be91fc30bbca9, type: 3}
+  - {fileID: 6974489897007497795, guid: 9d1d329bc2e8e8b439b5312b2cc9e65a, type: 3}
   - {fileID: 6974489897007497795, guid: b22b53c39099b8b41bd0cb6580931323, type: 3}
   sharkList: []
+  finalSpawnTime:
+  - 1
+  - 4
+  - 6
   maxBossHP: 100
   isBoss: 0
-  bossSpawnTime: 45
 --- !u!4 &76059816
 Transform:
   m_ObjectHideFlags: 0
@@ -2066,7 +2070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c495c56b12a545649bd2ef0dc5aa331a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIslandCount: 3
+  spawnIslandCount: 0
   minDistance: 0.5
   screenArea: {x: 0, y: 0}
   areaCollider: {fileID: 600620124}
@@ -2888,6 +2892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpearCount>k__BackingField: 0
   <MyCoin>k__BackingField: 0
+  <SpeedUp>k__BackingField: 0
 --- !u!4 &1847807619
 Transform:
   m_ObjectHideFlags: 0
@@ -5611,6 +5616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 551101328120880779, guid: c45f17b34bed2a043b1720fa0f6598af, type: 3}
+  maxAttackCount: 1
   attackCount: 0
   cameraController: {fileID: 0}
 --- !u!212 &6794016514672532567

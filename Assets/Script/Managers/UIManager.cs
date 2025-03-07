@@ -105,7 +105,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimeText(int playTime)
     {
-        gameTime.text = playTime.ToString();
+        gameTime.text = playTime.ToString() + "m";
     }
 
     // 재시작 버튼

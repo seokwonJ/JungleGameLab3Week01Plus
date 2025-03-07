@@ -29,6 +29,10 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(10); // 데미지 받기 (10)
         }
+        if (other.CompareTag("Enemy2")) // 보스와 충돌하면
+        {
+            TakeDamage(4); // 데미지 받기 (10)
+        }
     }
 
     public void TakeDamage(int damage)

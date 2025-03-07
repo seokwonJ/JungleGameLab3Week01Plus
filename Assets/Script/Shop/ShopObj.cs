@@ -4,7 +4,8 @@ using UnityEngine;
 public enum UpgradeItem
 {
     SpearCount = 0,
-    ReroadingTime = 1
+    SpeedUp = 1,
+    ReroadingTime = 2
 }
 
 public class ShopObj : MonoBehaviour
@@ -35,6 +36,16 @@ public class ShopObj : MonoBehaviour
             {
                 case UpgradeItem.SpearCount:
                     if (StateManager.Instance.BuySpear())
+                    {
+                        StartCoroutine(Success());
+                    }
+                    else
+                    {
+                        StartCoroutine(Failure());
+                    }
+                    break;
+                case UpgradeItem.SpeedUp:
+                    if (StateManager.Instance.SpeedUpgrade())
                     {
                         StartCoroutine(Success());
                     }
