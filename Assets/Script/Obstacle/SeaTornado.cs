@@ -36,9 +36,7 @@ public class SeaTornado : Attraction
         if (isExistPlayer)
         {
             isExistPlayer = false;
-            Debug.Log("토네이도가 플레이어 체력 감소시킴!");
         }
-        Debug.Log("토네이도 소멸!");
         Destroy(gameObject);
     }
 
