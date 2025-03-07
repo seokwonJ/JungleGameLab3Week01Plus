@@ -8,8 +8,14 @@ public class test2 : MonoBehaviour
     {
         // Start 삭제안함
         // git branch 22222
+        Update();
     }
 =======
 
 >>>>>>> JSW
+
+    private void Update()
+    {
+        
+    }
 }
