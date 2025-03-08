@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   msgSuccess: {fileID: 1109815051}
   msgFailure: {fileID: 1994193181}
-  characterState: 1
+  characterState: 2
 --- !u!1 &455595263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpearCount>k__BackingField: 0
   <MyCoin>k__BackingField: 0
+  <SpeedUp>k__BackingField: 0
 --- !u!4 &1027983117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7240755903038455589, guid: 15054ae178461c34580bfc7838f4ee99, type: 3}

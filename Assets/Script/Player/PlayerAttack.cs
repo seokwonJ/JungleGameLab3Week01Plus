@@ -47,4 +47,13 @@ public class PlayerAttack : MonoBehaviour
             attackCount -= 1;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            AttackCountUp();
+            Destroy(other.gameObject);
+        }
+    }
 }

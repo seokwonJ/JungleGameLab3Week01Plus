@@ -9,6 +9,7 @@ TagManager:
   - Spear
   - Boss
   - Enemy2
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,24 @@
 using System.Collections;
 using TMPro.Examples;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IslandTornadoSpawner : MonoBehaviour
 {
+    static IslandTornadoSpawner _instance;
+    public static IslandTornadoSpawner Instance { get { return _instance; } private set { } }
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     [Header("섬")]
     public int spawnIslandCount = 2;
     public float minDistance = 2f; // 섬 간 최소 거리
@@ -23,7 +38,7 @@ public class IslandTornadoSpawner : MonoBehaviour
         screenArea = cameraController.ScreenArea;
         areaCollider.size = screenArea;             // 구역 크기로 설정
 
-        SpawnIsland();
+        //SpawnIsland();
         StartCoroutine(SpawnTornado());
     }
 
@@ -52,10 +67,16 @@ public class IslandTornadoSpawner : MonoBehaviour
         }
     }
 
+    public void StopTornadoCoroutine()
+    {
+        StopAllCoroutines();
+    }
+
     IEnumerator SpawnTornado()
     {
         while (true)
         {
+            print("토네이도");
             yield return new WaitForSeconds(tornadoSpawnInterval);
 
             float x = Random.Range(-areaCollider.size.x, areaCollider.size.x);
@@ -68,12 +89,4 @@ public class IslandTornadoSpawner : MonoBehaviour
         }
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    Color color = new Color(1, 0, 0, 0.25f);
-    //    Gizmos.color = color;
-
-    //    Vector2 area = areaCollider.size;
-    //    Gizmos.DrawCube(transform.position, area);
-    //}
 }

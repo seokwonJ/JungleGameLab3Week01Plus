@@ -177,12 +177,18 @@ public class GameManager : MonoBehaviour
         bossHealthBarFill = UIManager.Instance.gameObject.transform.GetChild(5).GetChild(1).GetComponent<Image>();  // 보스 체력바
         bossHP = maxBossHP;
 
-        // 상어 소환 중지
+        // 몬스터 및 토네이도 소환 중지
         if (spawnIntervalCorouineList.Count >= 2)
         {
-            StopCoroutine(spawnIntervalCorouineList[1]);
-            spawnIntervalCorouineList[1] = null;
+            for (int i=1; i < spawnIntervalCorouineList.Count; i++)
+            {
+                StopCoroutine(spawnIntervalCorouineList[i]);
+                spawnIntervalCorouineList[i] = null;
+            }
+            IslandTornadoSpawner.Instance.StopTornadoCoroutine();
         }
+
+
 
         // 크라켄 소환
         isBoss = true;
@@ -199,7 +205,6 @@ public class GameManager : MonoBehaviour
 
         // (구현 예정)
         Debug.Log("보스 클리어~");
-
 
         Invoke("GoShopScene", 3f);
     }

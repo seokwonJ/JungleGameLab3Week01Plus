@@ -33,6 +33,11 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(4); // 데미지 받기 (10)
         }
+        if (other.CompareTag("Item"))
+        {
+            print("ggg");
+            Destroy(other.gameObject);
+        }
     }
 
     public void TakeDamage(int damage)
