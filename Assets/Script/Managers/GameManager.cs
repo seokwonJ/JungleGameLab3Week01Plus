@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         isStartGame = false;
         isBoss = false;
 
-        playDistance = 1000;
+        playDistance = 100;
 
         spawnIntervalCorouineList = new List<Coroutine>();
 
@@ -143,19 +143,36 @@ public class GameManager : MonoBehaviour
 
     // 보스체력
     public float maxBossHP = 100;
-    float bossHP;
+    public float bossHP;
     GameObject bossObj;
     Image bossHealthBarFill;
     public bool isBoss;
-
+    bool bossPage2 = false;
 
     // 보스 데미지 받는 함수
     public void DamagedBossHP(int value)
     {
         if (bossHP > 0)
         {
-            bossHP -= value;
-            bossHealthBarFill.fillAmount = bossHP / maxBossHP;
+            
+            if (!bossPage2 && bossHP < maxBossHP / 2 )
+            {
+                bossPage2 = true;
+                bossHP -= value/2;
+                bossObj.GetComponent<KrakenMove>().StartPage2();
+            }
+            else
+            {
+                if (bossPage2)
+                {
+                    bossHP -= value / 2;
+                }
+                else
+                {
+                    bossHP -= value;
+                }
+                bossHealthBarFill.fillAmount = bossHP / maxBossHP;
+            }
         }
         else BossClear();
     }
@@ -169,7 +186,7 @@ public class GameManager : MonoBehaviour
         SharkDestory(); // 상어 삭제
 
         // 남은 미끼 체력을 보스전 시작시 적용
-        playerObject.GetComponent<PlayerHealth>().UpdateCurrentHP(playerObject.transform.Find("Whale").GetComponent<Whale>().currentHealth);
+        //playerObject.GetComponent<PlayerHealth>().UpdateCurrentHP(playerObject.transform.Find("Whale").GetComponent<Whale>().currentHealth);
         
 
         //  보스 UI 활성화
@@ -185,10 +202,8 @@ public class GameManager : MonoBehaviour
                 StopCoroutine(spawnIntervalCorouineList[i]);
                 spawnIntervalCorouineList[i] = null;
             }
-            IslandTornadoSpawner.Instance.StopTornadoCoroutine();
+            //IslandTornadoSpawner.Instance.StopTornadoCoroutine();
         }
-
-
 
         // 크라켄 소환
         isBoss = true;

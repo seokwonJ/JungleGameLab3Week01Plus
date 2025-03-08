@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   isGameClear: 0
-  playDistance: 1000
+  playDistance: 500
   isStartGame: 0
   sharkSpawnInterval: 0.75
   spawnTransformList: []
@@ -245,6 +245,7 @@ MonoBehaviour:
   - 4
   - 6
   maxBossHP: 100
+  bossHP: 0
   isBoss: 0
 --- !u!4 &76059816
 Transform:
@@ -622,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.007445986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
       propertyPath: m_LocalRotation.w

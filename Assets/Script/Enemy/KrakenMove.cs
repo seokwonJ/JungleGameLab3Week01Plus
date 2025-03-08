@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using Unity.VisualScripting;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class KrakenMove : MonoBehaviour
 {
@@ -22,7 +25,22 @@ public class KrakenMove : MonoBehaviour
     public float tentacleCooldown = 0.5f; // 각 다리 공격 쿨타임
     public float fullCooldown = 2f; // 모든 다리 사용 후 전체 쿨타임
 
-    public GameObject tentacleProjectilePrefab; 
+    public GameObject tentacleProjectilePrefab;
+    public GameObject sphereItem;
+    public GameObject mouth;
+
+    [SerializeField] float randSkillTiming; // skill1 랜덤으로 사용하는 타이밍
+    float nowSkillTiming = 0;
+    float beforeSpeed;
+
+    bool page2;
+    float page2Speed = 1f;
+    bool isPageSkill;
+    float page2CoolTimeNow = 0f;
+    float page2CoolTime = 3f;
+    CameraController cameraController;
+    Vector3 krakenScale;
+    
 
     void Start()
     {
@@ -43,27 +61,87 @@ public class KrakenMove : MonoBehaviour
                 tentacleRbs.Add(tentacleObj.GetComponent<Rigidbody2D>());
             }
         }
+
+        randSkillTiming = Random.Range(7f, 10f); // skill1 랜덤으로 사용하는 타이밍
+        mouth = transform.GetChild(0).GetChild(1).gameObject;
+        beforeSpeed = speed;
+        cameraController = Camera.main.GetComponent<CameraController>();
     }
 
     void Update()
     {
         if (player != null)
         {
-            // 플레이어와의 거리 계산
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-            // 플레이어가 4f 거리보다 멀면 가까워지려고 이동
-            if (distanceToPlayer > maxTentacleDistance)
+            if (!isPageSkill)
             {
-                Move();
+                // 플레이어와의 거리 계산
+                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+                // 스킬타이밍 계산
+                nowSkillTiming += Time.deltaTime;
+
+                // 플레이어가 4f 거리보다 멀면 가까워지려고 이동
+                if (distanceToPlayer > maxTentacleDistance)
+                {
+                    Move();
+                    Rotate();
+                }
+                // 플레이어와의 거리가 4f 이하일 때 공격 (isAttacking, isCooldown 체크 추가)
+                else if (!isAttacking && !isCooldown)
+                {
+                    StartCoroutine(MeleeAttack());
+                }
+
+                // 랜덤으로 작살 먹고 버리기 로직 
+                if (nowSkillTiming > randSkillTiming)
+                {
+                    nowSkillTiming = 0;
+                    Skill1();
+                }
             }
+            
 
-            // 플레이어와의 거리가 4f 이하일 때 공격 (isAttacking, isCooldown 체크 추가)
-            else if (!isAttacking && !isCooldown)
+            // page2 중일 때
+            if (page2)
             {
-                StartCoroutine(MeleeAttack());
+                // 쿨 타임 돌았을 때 
+                if (page2CoolTimeNow > page2CoolTime && !isPageSkill)
+                {
+                    int randomNum = Random.Range(1,4);
+                    isPageSkill = true;
+
+                    switch(randomNum)
+                    {
+                        case 1:
+                            // 먹물포 발사
+                            Page2Skill1();
+                            break;
+                        case 2:
+                            // 회전 난사
+                            Page2Skill1();
+                            break;
+                        case 3:
+                            // 사라졌다가 나타나서 무작위 검은 탄알 발사,
+                            Page2Skill1();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    page2CoolTimeNow += Time.deltaTime;
+                }
             }
         }
+    }
+
+    public void StartPage2()
+    {
+        page2 = true;
+        // 이속 증가
+        beforeSpeed = beforeSpeed + page2Speed;
+        print("page2 시작");
     }
 
     // 이동 처리
@@ -82,6 +160,162 @@ public class KrakenMove : MonoBehaviour
         }
     }
 
+    private void Rotate()
+    {
+        transform.up = (player.position - transform.position).normalized;
+    }
+    private void Skill1()
+    {
+        print("SKill1");
+        StartCoroutine(Skill1Coroutine());
+    }
+
+    IEnumerator Skill1Coroutine()
+    {
+        transform.tag = "BossSkill";
+        mouth.SetActive(true);
+        speed = beforeSpeed / 2;
+        yield return new WaitForSeconds(2f);
+        transform.tag = "Boss";
+        mouth.SetActive(false);
+        speed = beforeSpeed;
+    }
+
+
+
+    private void Page2Skill1()
+    {
+        print("2SKill1");
+        StartCoroutine(Page2Skill1Coroutine());
+    }
+
+    IEnumerator Page2Skill1Coroutine()
+    {
+        print("skill1");
+        yield return new WaitForSeconds(2f);
+        ReturnCoolTime();
+    }
+
+
+    public GameObject krakenBall;
+    int ballCount = 0;
+    int maxCount = 20;
+    private void Page2Skill2()
+    {
+        print("2SKill2");
+        StartCoroutine(Page2Skill2Coroutine());
+    }
+
+    IEnumerator Page2Skill2Coroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        while (true)
+        {
+            GameObject ball = Instantiate(krakenBall,transform.position, Quaternion.identity);
+            ball.transform.up = transform.up;
+            transform.Rotate(0, 0, 20);
+            cameraController.StartShake(0.07f, 0.08f);
+            if (ballCount > maxCount)
+            {
+                ballCount = 0;
+                break;
+            }
+            ballCount += 1;
+            yield return new WaitForSeconds(0.1f);
+        }
+        ReturnCoolTime();
+    }
+
+    private void Page2Skill3()
+    {
+        print("2SKill3");
+        krakenScale = transform.GetChild(0).localScale;
+        StartCoroutine(Page2Skill3Coroutine());
+    }
+
+    IEnumerator Page2Skill3Coroutine()
+    {
+        float movingTime = 0f;
+
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        transform.tag = "Untagged";
+        // 작아져서 숨기
+        while (true)
+        {
+            transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, Vector3.zero, Time.deltaTime * 5f);
+            if (Vector3.Distance(transform.GetChild(0).localScale, Vector3.zero) < 0.1f) break;
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.GetChild(0).gameObject.SetActive(false);
+
+
+        // 플레이어 쪽으로 이동하기
+        while (true)
+        {
+            transform.position = Vector3.Lerp(transform.position, player.position, Time.deltaTime);
+            movingTime += Time.deltaTime;
+            if (movingTime >= 2f) break;
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.GetChild(0).gameObject.SetActive(true);
+
+        // 커져서 나타나기
+        while (true)
+        {
+            transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, krakenScale, Time.deltaTime * 20f);
+            if (Vector3.Distance(transform.GetChild(0).localScale, krakenScale) < 4f)
+            {
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+            }
+            if (Vector3.Distance(transform.GetChild(0).localScale, krakenScale) < 0.1)
+            {
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.tag = "Boss";
+        transform.GetChild(0).localScale = krakenScale;
+        //// 쏘기
+        float angleStep = 360f / 9; // 9개 방향
+        float startAngle = 0f; // 시작 각도
+
+        for (int i = 0; i < 9; i++)
+        {
+            float angle = startAngle + (angleStep * i); // 현재 각도 (도)
+            float radian = angle * Mathf.Deg2Rad; // 라디안으로 변환
+
+            // 방향 벡터 계산
+            Vector2 direction = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+
+            // 공 생성
+            GameObject ball = Instantiate(krakenBall, transform.position, Quaternion.identity);
+            ball.transform.up = direction;
+            ball.GetComponent<KrakenBall>().speed = 12;
+        }
+
+        //yield return new WaitForSeconds(2f);
+        ReturnCoolTime();
+    }
+
+
+    private void ReturnCoolTime()
+    {
+        page2CoolTimeNow = 0;
+        isPageSkill = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Spear") && transform.CompareTag("BossSkill"))
+        {
+            player.GetComponent<PlayerAttack>().AttackCountDown();
+            Instantiate(sphereItem,transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
+        }
+    }
 
 
     // 밀리 어택을 위한 근접 공격
