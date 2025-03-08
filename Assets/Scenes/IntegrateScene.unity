@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   isGameClear: 0
-  playDistance: 500
+  playDistance: 100
   isStartGame: 0
   sharkSpawnInterval: 0.75
   spawnTransformList: []
@@ -660,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 2121531491239973102, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117471621491486142, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

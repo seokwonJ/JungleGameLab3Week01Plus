@@ -29,15 +29,21 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(10); // 데미지 받기 (10)
         }
-        if (other.CompareTag("Enemy2")) // 보스와 충돌하면
+        if (other.CompareTag("Enemy2")) // 새와 충돌하면
         {
-            TakeDamage(4); // 데미지 받기 (10)
+            TakeDamage(5); // 데미지 받기 (10)
         }
         if (other.CompareTag("Item"))
         {
-            print("ggg");
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("BossCanon"))
+        {
+            print("30");
+            TakeDamage(25); // 데미지 받기 (10)
+        }
+
     }
 
     public void TakeDamage(int damage)

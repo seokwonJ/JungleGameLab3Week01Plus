@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -207,7 +208,29 @@ public class GameManager : MonoBehaviour
 
         // 크라켄 소환
         isBoss = true;
-        bossObj = Instantiate(spawnPrefabList[spawnPrefabList.Count - 1]);
+        Camera.main.GetComponent<CameraController>().StartShake(1f, 0.25f);
+        StartCoroutine(BossComing());
+        bossObj = Instantiate(spawnPrefabList[spawnPrefabList.Count - 1], transform.up * 15, Quaternion.identity);
+    }
+
+    IEnumerator BossComing()
+    {
+        while (true)
+        {
+            Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Lerp(Camera.main.GetComponent<Camera>().orthographicSize, 25, Time.deltaTime * 10f);
+            if (Camera.main.GetComponent<Camera>().orthographicSize - 25 > -0.1f) break;
+            yield return new WaitForEndOfFrame();
+        }
+
+        Camera.main.GetComponent<Camera>().orthographicSize = 25;
+
+        while(true)
+        {
+            Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Lerp(Camera.main.GetComponent<Camera>().orthographicSize, 7, Time.deltaTime);
+            if (Camera.main.GetComponent<Camera>().orthographicSize - 7 < 0.1f) break;
+            yield return new WaitForEndOfFrame();
+        }
+        Camera.main.GetComponent<Camera>().orthographicSize = 7;
     }
 
     // 보스 클리어시

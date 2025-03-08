@@ -164,6 +164,7 @@ public class KrakenMove : MonoBehaviour
     {
         transform.up = (player.position - transform.position).normalized;
     }
+
     private void Skill1()
     {
         print("SKill1");
@@ -181,8 +182,6 @@ public class KrakenMove : MonoBehaviour
         speed = beforeSpeed;
     }
 
-
-
     private void Page2Skill1()
     {
         print("2SKill1");
@@ -192,7 +191,41 @@ public class KrakenMove : MonoBehaviour
     IEnumerator Page2Skill1Coroutine()
     {
         print("skill1");
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        transform.GetChild(2).gameObject.SetActive(true);
+        GameObject canonRange = transform.GetChild(2).GetChild(0).gameObject;
+        GameObject canon = transform.GetChild(2).GetChild(1).gameObject;
+
+        Vector3 canonFirstScale = canon.transform.localScale;
+
+        int count = 0;
+        while(true) 
+        {
+            Rotate();
+            yield return new WaitForSeconds(0.8f);
+            canon.SetActive(true);
+            Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.2f);
+
+            while (true)
+            {
+                canon.transform.localScale = Vector3.Lerp(canon.transform.localScale, canonRange.gameObject.transform.localScale, Time.deltaTime * 20);
+                if (Vector3.Distance(canon.transform.localScale, canonRange.transform.localScale) < 0.1f)
+                {
+                    canon.transform.localScale = canonFirstScale;
+                    break;
+                }
+                yield return new WaitForEndOfFrame();
+            }
+            count += 1;
+            canon.SetActive(false);
+            if (count >= 3)
+            {
+                break;
+            }
+        }
+        transform.GetChild(2).gameObject.SetActive(false);
         ReturnCoolTime();
     }
 
@@ -281,6 +314,8 @@ public class KrakenMove : MonoBehaviour
         //// 쏘기
         float angleStep = 360f / 9; // 9개 방향
         float startAngle = 0f; // 시작 각도
+
+        cameraController.StartShake(0.2f, 0.1f);
 
         for (int i = 0; i < 9; i++)
         {
