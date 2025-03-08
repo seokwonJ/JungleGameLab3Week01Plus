@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   isGameClear: 0
-  playDistance: 100
+  playDistance: 500
   isStartGame: 0
   sharkSpawnInterval: 0.75
   spawnTransformList: []
@@ -2385,8 +2385,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.2
-  m_Text: "Kraken Hunter \n\nW,S : Move\nA,D : Rotate\nLeft Click : Attack\n\nDefense
-    And Hunt"
+  m_Text: "Kraken Hunter \n\nW,S : \uC774\uB3D9\nA,D : \uD68C\uC804\nLeft Click :
+    \uACF5\uACA9\n\nDefense And Hunt"
 --- !u!222 &1209819529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2897,7 +2897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpearCount>k__BackingField: 0
   <MyCoin>k__BackingField: 0
-  <SpeedUp>k__BackingField: 0
+  <maxHP>k__BackingField: 50
 --- !u!4 &1847807619
 Transform:
   m_ObjectHideFlags: 0

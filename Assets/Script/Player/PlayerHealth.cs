@@ -17,8 +17,9 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "IntegrateScene")
-            healthBarFill = UIManager.Instance.gameObject.transform.GetChild(1).GetChild(1).GetComponent<Image>();
+        if(SceneManager.GetActiveScene().name == "IntegrateScene") healthBarFill = UIManager.Instance.gameObject.transform.GetChild(1).GetChild(1).GetComponent<Image>();
+        maxHealth = StateManager.Instance.maxHP;
+        print(maxHealth);
         cameraController = Camera.main.GetComponent <CameraController>();
         currentHealth = maxHealth; // 시작할 때 최대 체력 설정
     }
@@ -31,19 +32,16 @@ public class PlayerHealth : MonoBehaviour
         }
         if (other.CompareTag("Enemy2")) // 새와 충돌하면
         {
-            TakeDamage(5); // 데미지 받기 (10)
+            TakeDamage(10); // 데미지 받기 (10)
         }
         if (other.CompareTag("Item"))
         {
             Destroy(other.gameObject);
         }
-
         if (other.CompareTag("BossCanon"))
         {
-            print("30");
             TakeDamage(25); // 데미지 받기 (10)
         }
-
     }
 
     public void TakeDamage(int damage)

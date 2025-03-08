@@ -92,6 +92,11 @@ public class UIManager : MonoBehaviour
         playUI.SetActive(true);
     }
 
+    public void UpdateWarningTime()
+    {
+        gameTime.color = Color.red;
+    }
+
     public void UpdateShaksfinUI()
     {
         shaksfinUI.text = $"Shaksfin: {StateManager.Instance.MyCoin}";

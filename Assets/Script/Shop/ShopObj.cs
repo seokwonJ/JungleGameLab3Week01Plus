@@ -4,7 +4,7 @@ using UnityEngine;
 public enum UpgradeItem
 {
     SpearCount = 0,
-    SpeedUp = 1,
+    HealthPower = 1,
     ReroadingTime = 2
 }
 
@@ -44,8 +44,8 @@ public class ShopObj : MonoBehaviour
                         StartCoroutine(Failure());
                     }
                     break;
-                case UpgradeItem.SpeedUp:
-                    if (StateManager.Instance.SpeedUpgrade())
+                case UpgradeItem.HealthPower:
+                    if (StateManager.Instance.HpUpgrade())
                     {
                         StartCoroutine(Success());
                     }

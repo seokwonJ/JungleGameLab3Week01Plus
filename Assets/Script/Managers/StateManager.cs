@@ -7,15 +7,15 @@ public class StateManager : MonoBehaviour
 
     static float _relodaingUpgradeValue = 0.2f;
     static float _reloadingTime = 1;
-    static float _speed = 1f;
-    static int spearCoin = 32;
-    static int powerUpCoin = 8;
-    static int speedUpCoin = 1;
+    static float _hp = 5f;
+    static int spearCoin = 30;
+    static int powerUpCoin = 10;
+    static int hpCoin = 5;
 
     [field: SerializeField] public int SpearCount { get; set; }
     int _reloadUpgradeCount = 1;
     [field: SerializeField] public int MyCoin { get; private set; } = 0;
-    [field: SerializeField] public float SpeedUp { get; private set; }
+    [field: SerializeField] public float maxHP { get; private set; }
 
 
     void Awake()
@@ -49,12 +49,11 @@ public class StateManager : MonoBehaviour
         }
         return false;
     }
-    public bool SpeedUpgrade()
+    public bool HpUpgrade()
     {
-        if (UseCoin(speedUpCoin))
+        if (UseCoin(hpCoin))
         {
-            SpeedUp += _speed;
-            print(SpeedUp);
+            maxHP += _hp;
             return true;
         }
         return false;

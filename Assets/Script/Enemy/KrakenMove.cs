@@ -118,11 +118,11 @@ public class KrakenMove : MonoBehaviour
                             break;
                         case 2:
                             // 회전 난사
-                            Page2Skill1();
+                            Page2Skill2();
                             break;
                         case 3:
                             // 사라졌다가 나타나서 무작위 검은 탄알 발사,
-                            Page2Skill1();
+                            Page2Skill3();
                             break;
                         default:
                             break;

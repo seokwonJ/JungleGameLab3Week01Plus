@@ -17,9 +17,6 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
-        speed = speed + StateManager.Instance.SpeedUp;
-        print(speed);
-        print(maxSpeed + " 추후변동");
         rb = GetComponent<Rigidbody2D>();
     }
 

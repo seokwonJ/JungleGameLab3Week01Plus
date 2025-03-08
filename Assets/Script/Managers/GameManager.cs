@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool isGameClear;
     public float playDistance = 1000;  // 처음 거리
     public bool isStartGame = false;
+    public bool isWarningGame = false;
     public float sharkSpawnInterval;
     float startDistance;
     GameObject playerObject;
@@ -61,6 +62,12 @@ public class GameManager : MonoBehaviour
             isStartGame = true;
             GamePlaying();
         }
+
+        if (playDistance <= 100 && !isWarningGame)
+        {
+            UIManager.Instance.UpdateWarningTime();
+            isWarningGame = true;
+        }
     }
 
     public void UpdateTimer()
@@ -81,7 +88,7 @@ public class GameManager : MonoBehaviour
         isStartGame = false;
         isBoss = false;
 
-        playDistance = 100;
+        playDistance = 500;
 
         spawnIntervalCorouineList = new List<Coroutine>();
 
