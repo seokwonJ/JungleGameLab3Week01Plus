@@ -162,6 +162,7 @@ public class KrakenMove : MonoBehaviour
 
     private void Rotate()
     {
+        if (player == null) return;
         transform.up = (player.position - transform.position).normalized;
     }
 
@@ -346,7 +347,6 @@ public class KrakenMove : MonoBehaviour
     {
         if (other.CompareTag("Spear") && transform.CompareTag("BossSkill"))
         {
-            player.GetComponent<PlayerAttack>().AttackCountDown();
             Instantiate(sphereItem,transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }

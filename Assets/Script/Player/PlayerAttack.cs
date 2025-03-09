@@ -8,12 +8,13 @@ public class PlayerAttack : MonoBehaviour
     public GameObject bullet;
     [SerializeField]int maxAttackCount = 1;
     public int attackCount;
+    public bool isGameOver;
 
     public CameraController cameraController;
     void Start() 
     {
         cameraController = Camera.main.GetComponent<CameraController>();
-
+        isGameOver = false;
         maxAttackCount += StateManager.Instance.SpearCount;
         attackCount = maxAttackCount;
     }
@@ -22,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
         // 마우스 클릭 시 이동 시작
         if (Input.GetMouseButtonDown(0) && attackCount > 0)
         {
+            if (isGameOver) return;
             Attack();
         }
     }

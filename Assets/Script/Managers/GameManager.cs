@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
 
         isStartGame = false;
         isBoss = false;
+        bossPage2 = false;
+        isWarningGame = false;
 
         playDistance = 500;
 
@@ -128,6 +130,8 @@ public class GameManager : MonoBehaviour
 
         StopAllCoroutines();
 
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerObject.GetComponent<PlayerAttack>().isGameOver = true;
         //if (enemySpawner != null) enemySpawner.SetActive(false);
         isGameOver = true;
     }
