@@ -231,6 +231,7 @@ MonoBehaviour:
   isGameClear: 0
   playDistance: 500
   isStartGame: 0
+  isWarningGame: 0
   sharkSpawnInterval: 0.75
   spawnTransformList: []
   spawnPrefabList:
@@ -615,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1837342704981615609, guid: 4127711dae6642548b4aa694666ab5ae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5623,6 +5624,7 @@ MonoBehaviour:
   bullet: {fileID: 551101328120880779, guid: c45f17b34bed2a043b1720fa0f6598af, type: 3}
   maxAttackCount: 1
   attackCount: 0
+  isGameOver: 0
   cameraController: {fileID: 0}
 --- !u!212 &6794016514672532567
 SpriteRenderer:
