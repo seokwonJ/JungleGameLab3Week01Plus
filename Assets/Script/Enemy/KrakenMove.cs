@@ -62,7 +62,7 @@ public class KrakenMove : MonoBehaviour
             }
         }
 
-        randSkillTiming = Random.Range(7f, 10f); // skill1 랜덤으로 사용하는 타이밍
+        randSkillTiming = Random.Range(5f, 8f); // skill1 랜덤으로 사용하는 타이밍
         mouth = transform.GetChild(0).GetChild(1).gameObject;
         beforeSpeed = speed;
         cameraController = Camera.main.GetComponent<CameraController>();
