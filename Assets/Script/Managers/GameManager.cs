@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
                 bossPage2 = true;
                 bossHP -= value / 2;
                 bossObj.GetComponent<KrakenMove>().StartPage2();
+                Camera.main.GetComponent<CameraController>().StartShake(0.7f, 1f);
             }
             else
             {
