@@ -357,6 +357,7 @@ public class KrakenMove : MonoBehaviour
         {
             Instantiate(sphereItem, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
+            ///fadsasdasd
         }
     }
 
