@@ -141,7 +141,15 @@ public class KrakenMove : MonoBehaviour
         page2 = true;
         // 이속 증가
         beforeSpeed = beforeSpeed + page2Speed;
-        print("page2 시작");
+
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(160, 48, 59, 255);
+        for (int i = 0;i < 4;i++)
+        {
+            for(int j = 0;j < 6;j++)
+            {
+                transform.GetChild(0).GetChild(0).GetChild(i).GetChild(j).GetComponent<SpriteRenderer>().color = new Color32(150, 66, 85, 255);
+            }
+        }
     }
 
     // 이동 처리
@@ -363,7 +371,15 @@ public class KrakenMove : MonoBehaviour
 
         // 탄환 생성 및 발사
         GameObject bulletObj = Instantiate(tentacleProjectilePrefab, tentacleToAttack.position, Quaternion.identity);
-        bulletObj.GetComponent<TentacleProjectile>().targetPosition = player.position; 
+        bulletObj.GetComponent<TentacleProjectile>().targetPosition = player.position;
+        if (page2)
+        {
+            print("page2 change projectileColor");
+            bulletObj.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(150, 66, 85, 255);
+            bulletObj.transform.GetChild(0).GetComponent<LineRenderer>().endColor = new Color32(150, 66, 85, 255);
+            bulletObj.transform.GetChild(0).GetComponent<LineRenderer>().startColor = new Color32(150, 66, 85, 255);
+        }
+ 
 
         yield return new WaitForSeconds(tentacleCooldown);
 

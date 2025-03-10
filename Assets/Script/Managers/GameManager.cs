@@ -299,8 +299,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
     public void SharkDestory()
     {
         foreach(GameObject shark in sharkList)
