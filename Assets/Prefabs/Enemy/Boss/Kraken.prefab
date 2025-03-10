@@ -4733,7 +4733,7 @@ GameObject:
   - component: {fileID: 2663737875016773371}
   m_Layer: 8
   m_Name: Shade
-  m_TagString: Boss
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

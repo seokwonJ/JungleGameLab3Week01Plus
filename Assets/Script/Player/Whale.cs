@@ -13,13 +13,13 @@ public class Whale : MonoBehaviour
     public bool isExistHead = true;
 
     public bool isTakeDamaged = false;
-    public float unattackTimer = 0f; 
+    public float unattackTimer = 0f;
     public float unattackTime = 0.75f;
 
     void Start()
     {
         currentHealth = maxHealth;
-        foreach(Transform part in transform)
+        foreach (Transform part in transform)
         {
             parts.Add(part.gameObject);
         }
@@ -27,24 +27,24 @@ public class Whale : MonoBehaviour
 
     void Update()
     {
-        if(isTakeDamaged)   // 데미지 받았으면
+        if (isTakeDamaged)   // 데미지 받았으면
         {
             unattackTimer += Time.deltaTime;    // 무적시간 측정
 
-            if(unattackTime < unattackTimer) 
+            if (unattackTime < unattackTimer)
             {
                 isTakeDamaged = false;
             }
         }
-       
+
     }
 
     public void TakeDamage(int attack = 1)
     {
-        
+
         // 현재 체력
         currentHealth = Mathf.Clamp(currentHealth - attack, 0, maxHealth);
-        if(currentHealth > 0)
+        if (currentHealth > 0)
         {
             unattackTimer += Time.deltaTime;
 
@@ -91,11 +91,11 @@ public class Whale : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             SharkMove shark = collision.gameObject.GetComponent<SharkMove>();
 
-            if(shark != null && currentHealth > 0) 
+            if (shark != null && currentHealth > 0)
             {
                 if (!isTakeDamaged)
                 {

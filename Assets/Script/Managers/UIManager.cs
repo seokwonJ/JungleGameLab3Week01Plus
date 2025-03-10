@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
             FindUI();
@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGameStartUI();        
+        UpdateGameStartUI();
     }
 
     void Update()
@@ -121,13 +121,13 @@ public class UIManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "IntegrateScene")
+        if (scene.name == "IntegrateScene")
         {
             FindUI();
 
             Debug.LogWarning("∞‘¿” æ¿");
         }
-        else if(scene.name == "SceneShop")
+        else if (scene.name == "SceneShop")
         {
             Debug.LogWarning("ªÛ¡° æ¿");
         }

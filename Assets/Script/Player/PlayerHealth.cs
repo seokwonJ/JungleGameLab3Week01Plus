@@ -17,10 +17,10 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "IntegrateScene") healthBarFill = UIManager.Instance.gameObject.transform.GetChild(1).GetChild(1).GetComponent<Image>();
+        if (SceneManager.GetActiveScene().name == "IntegrateScene") healthBarFill = UIManager.Instance.gameObject.transform.GetChild(1).GetChild(1).GetComponent<Image>();
         maxHealth = StateManager.Instance.maxHP;
         print(maxHealth);
-        cameraController = Camera.main.GetComponent <CameraController>();
+        cameraController = Camera.main.GetComponent<CameraController>();
         currentHealth = maxHealth; // 시작할 때 최대 체력 설정
     }
 

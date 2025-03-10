@@ -32,8 +32,8 @@ public class StateManager : MonoBehaviour
     }
     public bool BuySpear()
     {
-        if (UseCoin(spearCoin)) 
-        { 
+        if (UseCoin(spearCoin))
+        {
             SpearCount++;
 
             return true;
@@ -42,8 +42,8 @@ public class StateManager : MonoBehaviour
     }
     public bool ReroadingUpgrade()
     {
-        if (UseCoin(powerUpCoin)) 
-        { 
+        if (UseCoin(powerUpCoin))
+        {
             _reloadUpgradeCount++;
             return true;
         }
@@ -78,6 +78,6 @@ public class StateManager : MonoBehaviour
             if (shopUiManager != null) shopUiManager.UpdatePurchase();
             return true;
         }
-            return false;
+        return false;
     }
 }

@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        if(SceneManager.GetActiveScene().name == "IntegrateScene")
+        if (SceneManager.GetActiveScene().name == "IntegrateScene")
             UpdateTimer();
 
         if (playDistance <= 0 && !isBoss)
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 1; i <= 3; i++)
             {
-                spawnIntervalCorouineList.Add(StartCoroutine(SharkSpawnCoroutine(spawnPrefabList[i], finalSpawnTime[i-1]))); // 기본 상어
+                spawnIntervalCorouineList.Add(StartCoroutine(SharkSpawnCoroutine(spawnPrefabList[i], finalSpawnTime[i - 1]))); // 기본 상어
             }
 
         }
@@ -166,11 +166,11 @@ public class GameManager : MonoBehaviour
     {
         if (bossHP > 0)
         {
-            
-            if (!bossPage2 && bossHP < maxBossHP / 2 )
+
+            if (!bossPage2 && bossHP <= maxBossHP / 2)
             {
                 bossPage2 = true;
-                bossHP -= value/2;
+                bossHP -= value / 2;
                 bossObj.GetComponent<KrakenMove>().StartPage2();
             }
             else
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
 
         // 남은 미끼 체력을 보스전 시작시 적용
         //playerObject.GetComponent<PlayerHealth>().UpdateCurrentHP(playerObject.transform.Find("Whale").GetComponent<Whale>().currentHealth);
-        
+
 
         //  보스 UI 활성화
         UIManager.Instance.UpdateBossStart();
@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
         // 몬스터 및 토네이도 소환 중지
         if (spawnIntervalCorouineList.Count >= 2)
         {
-            for (int i=1; i < spawnIntervalCorouineList.Count; i++)
+            for (int i = 1; i < spawnIntervalCorouineList.Count; i++)
             {
                 StopCoroutine(spawnIntervalCorouineList[i]);
                 spawnIntervalCorouineList[i] = null;
@@ -235,7 +235,7 @@ public class GameManager : MonoBehaviour
 
         Camera.main.GetComponent<Camera>().orthographicSize = 25;
 
-        while(true)
+        while (true)
         {
             Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Lerp(Camera.main.GetComponent<Camera>().orthographicSize, 7, Time.deltaTime);
             if (Camera.main.GetComponent<Camera>().orthographicSize - 7 < 0.1f) break;
@@ -301,7 +301,7 @@ public class GameManager : MonoBehaviour
 
     public void SharkDestory()
     {
-        foreach(GameObject shark in sharkList)
+        foreach (GameObject shark in sharkList)
             Destroy(shark);
         sharkList.Clear();
     }

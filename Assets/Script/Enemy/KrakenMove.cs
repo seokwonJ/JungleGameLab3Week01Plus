@@ -40,7 +40,7 @@ public class KrakenMove : MonoBehaviour
     float page2CoolTime = 3f;
     CameraController cameraController;
     Vector3 krakenScale;
-    
+
 
     void Start()
     {
@@ -99,7 +99,7 @@ public class KrakenMove : MonoBehaviour
                     Skill1();
                 }
             }
-            
+
 
             // page2 중일 때
             if (page2)
@@ -107,10 +107,10 @@ public class KrakenMove : MonoBehaviour
                 // 쿨 타임 돌았을 때 
                 if (page2CoolTimeNow > page2CoolTime && !isPageSkill)
                 {
-                    int randomNum = Random.Range(1,4);
+                    int randomNum = Random.Range(1, 4);
                     isPageSkill = true;
 
-                    switch(randomNum)
+                    switch (randomNum)
                     {
                         case 1:
                             // 먹물포 발사
@@ -143,9 +143,9 @@ public class KrakenMove : MonoBehaviour
         beforeSpeed = beforeSpeed + page2Speed;
 
         transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(160, 48, 59, 255);
-        for (int i = 0;i < 4;i++)
+        for (int i = 0; i < 4; i++)
         {
-            for(int j = 0;j < 6;j++)
+            for (int j = 0; j < 6; j++)
             {
                 transform.GetChild(0).GetChild(0).GetChild(i).GetChild(j).GetComponent<SpriteRenderer>().color = new Color32(150, 66, 85, 255);
             }
@@ -210,7 +210,7 @@ public class KrakenMove : MonoBehaviour
         Vector3 canonFirstScale = canon.transform.localScale;
 
         int count = 0;
-        while(true) 
+        while (true)
         {
             Rotate();
             yield return new WaitForSeconds(0.8f);
@@ -253,7 +253,7 @@ public class KrakenMove : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         while (true)
         {
-            GameObject ball = Instantiate(krakenBall,transform.position, Quaternion.identity);
+            GameObject ball = Instantiate(krakenBall, transform.position, Quaternion.identity);
             ball.transform.up = transform.up;
             transform.Rotate(0, 0, 20);
             cameraController.StartShake(0.07f, 0.08f);
@@ -355,7 +355,7 @@ public class KrakenMove : MonoBehaviour
     {
         if (other.CompareTag("Spear") && transform.CompareTag("BossSkill"))
         {
-            Instantiate(sphereItem,transform.position, Quaternion.identity);
+            Instantiate(sphereItem, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }
     }
@@ -379,7 +379,7 @@ public class KrakenMove : MonoBehaviour
             bulletObj.transform.GetChild(0).GetComponent<LineRenderer>().endColor = new Color32(150, 66, 85, 255);
             bulletObj.transform.GetChild(0).GetComponent<LineRenderer>().startColor = new Color32(150, 66, 85, 255);
         }
- 
+
 
         yield return new WaitForSeconds(tentacleCooldown);
 

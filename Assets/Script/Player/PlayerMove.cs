@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-       
+
 
         // 가속 및 감속 처리
         if (moveInput != 0)
